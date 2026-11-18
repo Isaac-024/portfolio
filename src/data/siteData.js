@@ -45,7 +45,7 @@ export const CATEGORIES = [
     id: 'cinematic',
     title: 'Cinematic Editing',
     description: 'Narrative-driven films with professional color grading, sound design, and seamless transitions.',
-    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP1mGa8F6mUFdBXlPEDhEpwNYUQirGQJ-ELt-W47vV24dOqc0KQTE47n7z&s=10',
+    thumbnail: 'https://www.ricardotakamura.com.br/wp-content/uploads/2020/04/Completo-scaled.jpg',
   },
   {
     id: 'reels',
@@ -57,43 +57,25 @@ export const CATEGORIES = [
     id: 'music',
     title: 'Music Videos',
     description: 'Stylized visual storytelling synchronized to the artist\'s sonic identity and creative vision.',
-    thumbnail: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'https://cdn.pixabay.com/video/2017/03/19/8437-209165711_tiny.jpg',
   },
   {
     id: 'travel',
     title: 'Travel Videos',
     description: 'Cinematic travel films with atmospheric pacing, aerial footage, and immersive sound design.',
-    thumbnail: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'https://img.magnific.com/free-photo/wooden-bridge-koh-nangyuan-island-surat-thani-thailand_335224-1082.jpg?semt=ais_hybrid&w=740&q=80',
   },
   {
     id: 'promo',
     title: 'Promotional Videos',
     description: 'High-impact brand stories and product launches designed to convert viewers into customers.',
-    thumbnail: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'https://img.magnific.com/free-photo/corporate-management-strategy-solution-branding-concept_53876-167088.jpg?semt=ais_hybrid&w=740&q=80',
   },
   {
     id: 'wedding',
     title: 'Wedding Films',
     description: 'Elegant, emotionally resonant wedding cinematography that captures every precious moment.',
-    thumbnail: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'motion',
-    title: 'Motion Graphics',
-    description: 'Kinetic typography, animated infographics, logo reveals, and dynamic broadcast graphics.',
-    thumbnail: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'vfx',
-    title: 'VFX & After Effects',
-    description: 'Visual effects compositing, 3D tracking, rotoscoping, particle simulations, and clean-up work.',
-    thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 'commercial',
-    title: 'Commercial Advertisements',
-    description: 'Television and digital ad production with polished pacing, voiceover sync, and brand compliance.',
-    thumbnail: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'https://cdn.pixabay.com/photo/2014/09/13/04/59/couple-443600_1280.jpg',
   },
 ];
 
@@ -147,15 +129,6 @@ export const SOFTWARE = [
   { name: 'Blender', short: 'Bl', level: 80, color: '#EA7600' },
   { name: 'Canva', short: 'Ca', level: 90, color: '#00C4CC' },
   { name: 'CapCut', short: 'Cc', level: 95, color: '#00E5FF' },
-];
-
-// ── Collaboration Types ──────────────────────────────────────
-export const COLLAB_TYPES = [
-  'Brand Collaborations',
-  'Content Creators',
-  'Music Artists',
-  'Businesses',
-  'Freelance Projects',
 ];
 
 // ── Contact & Social ─────────────────────────────────────────

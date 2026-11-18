@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
-import { COLLAB_TYPES } from '../data/siteData';
 
 export default function Collaboration() {
-  const [selectedType, setSelectedType] = useState(COLLAB_TYPES[0]);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: '',
@@ -27,25 +25,8 @@ export default function Collaboration() {
             LET&apos;S COLLABORATE
           </h2>
           <p className="text-sm text-neutral-400 font-light max-w-xl mx-auto">
-            Have a story, commercial, or creative vision? Select your project format below and dispatch a brief.
+            Have a story, commercial, or creative vision? Dispatch your project brief below.
           </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-16">
-          {COLLAB_TYPES.map((type) => (
-            <button
-              key={type}
-              type="button"
-              onClick={() => setSelectedType(type)}
-              className={`p-4 text-xs font-mono uppercase tracking-wider text-center border transition-all cursor-pointer ${
-                selectedType === type
-                  ? 'bg-white text-black border-white font-bold'
-                  : 'bg-neutral-950 text-neutral-400 border-white/10 hover:border-white/30'
-              }`}
-            >
-              {type}
-            </button>
-          ))}
         </div>
 
         <div className="max-w-2xl mx-auto p-8 sm:p-12 bg-black border border-white/10">
@@ -60,7 +41,7 @@ export default function Collaboration() {
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="pt-4 text-xs font-mono uppercase tracking-widest text-neutral-400 hover:text-white border-b border-white/20"
+                className="pt-4 text-xs font-mono uppercase tracking-widest text-neutral-400 hover:text-white border-b border-white/20 cursor-pointer"
               >
                 Send Another Inquiry
               </button>
