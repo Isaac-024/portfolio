@@ -4,7 +4,6 @@ import { AnimatePresence } from 'framer-motion';
 // Phase 1 Opening Screens
 import LoadingScreen from './components/LoadingScreen';
 import DiveInScreen from './components/DiveInScreen';
-import IntroVideo from './components/IntroVideo';
 
 // Phase 2 Main Portfolio Sections
 import Navbar from './components/Navbar';
@@ -19,22 +18,19 @@ import Footer from './components/Footer';
 import VideoModal from './components/VideoModal';
 
 export default function App() {
-  // Opening flow stages: 'loading' -> 'divein' -> 'intro' -> 'main'
+  // Opening flow stages: 'loading' -> 'divein' -> 'main'
   const [stage, setStage] = useState('loading');
   const [activeModalProject, setActiveModalProject] = useState(null);
 
   return (
     <div className="min-h-screen bg-black text-white relative font-sans selection:bg-white selection:text-black">
-      {/* Three-Screen Opening Experience */}
+      {/* Opening Experience */}
       <AnimatePresence mode="wait">
         {stage === 'loading' && (
           <LoadingScreen key="loading" onReady={() => setStage('divein')} />
         )}
         {stage === 'divein' && (
-          <DiveInScreen key="divein" onDiveIn={() => setStage('intro')} />
-        )}
-        {stage === 'intro' && (
-          <IntroVideo key="intro" onComplete={() => setStage('main')} />
+          <DiveInScreen key="divein" onDiveIn={() => setStage('main')} />
         )}
       </AnimatePresence>
 

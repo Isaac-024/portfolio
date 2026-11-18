@@ -8,11 +8,6 @@
  * below are clearly marked with [YOUR ...] for you to replace.
  */
 
-// ── Intro Video ──────────────────────────────────────────────
-// Place your 30-second intro as public/assets/videos/intro.mp4
-// Or paste a YouTube/Vimeo URL here.
-export const INTRO_VIDEO_URL = '/assets/videos/intro.mp4';
-
 // ── Brand ────────────────────────────────────────────────────
 export const BRAND = {
   name: 'ZYNC',

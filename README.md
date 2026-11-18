@@ -18,7 +18,7 @@ Server runs at: **`http://localhost:5173/`**
 
 ---
 
-## 🎞️ The 3-Screen Opening Sequence
+## 🎞️ Opening Sequence
 
 1. **Screen 1 — Loading Screen**:
    - Clean black background with the **ZYNC** wordmark (rendered exclusively in **Montserrat**).
@@ -28,14 +28,7 @@ Server runs at: **`http://localhost:5173/`**
 2. **Screen 2 — Dive In Screen**:
    - Large, centered **ZYNC** logo.
    - One button: **`DIVE IN ↗`** with subtle border and hover animations.
-   - Clicking transitions into Screen 3.
-
-3. **Screen 3 — Intro Video**:
-   - Full-viewport cinematic video (`object-fit: cover`).
-   - Autoplays with sound enabled (with browser autoplay fallback on interaction).
-   - Only ONE control: **`SKIP INTRO`** in the bottom-right corner.
-   - Zero technical overlays, indicators, or clutter.
-   - Smoothly transitions to the main portfolio upon skip or when video ends.
+   - Clicking transitions directly into the main portfolio.
 
 ---
 
@@ -63,6 +56,5 @@ Server runs at: **`http://localhost:5173/`**
 ## 📁 How to Customize Your Content
 
 All data is centralized in **`src/data/siteData.js`**:
-- **Intro Video**: Change `INTRO_VIDEO_URL` to your own YouTube URL, Vimeo link, or local file (`/assets/videos/intro.mp4`).
 - **Personal Information**: Replace placeholders marked with `[YOUR ...]` in `PERSONAL` and `CONTACT`.
 - **Projects & Categories**: Update titles, thumbnails, and video URLs in `FEATURED_PROJECTS` and `CATEGORIES`.
