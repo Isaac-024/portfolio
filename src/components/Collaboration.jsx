@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Check, ArrowRight, Loader2, AlertCircle, Mail, ExternalLink } from 'lucide-react';
+import { Check, ArrowRight, Loader2, AlertCircle, ExternalLink } from 'lucide-react';
 
 export default function Collaboration() {
   const [submitted, setSubmitted] = useState(false);
-  const [isActivationPending, setIsActivationPending] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
@@ -41,7 +40,6 @@ export default function Collaboration() {
 
     setIsSubmitting(true);
     setErrorMessage('');
-    setIsActivationPending(false);
 
     const clientName = form.name.trim();
     const clientEmail = form.email.trim();
@@ -70,22 +68,12 @@ export default function Collaboration() {
 
       const data = await response.json().catch(() => null);
 
-      // Check if FormSubmit requires initial one-time email confirmation
+      // Succeeded or accepted by FormSubmit (including first-time activation on owner's backend)
       if (
-        data &&
-        data.message &&
-        (data.message.toLowerCase().includes('activation') ||
-          data.message.toLowerCase().includes('activate'))
+        (response.ok && data && (data.success === 'true' || data.success === true)) ||
+        (data && data.message && (data.message.toLowerCase().includes('activation') || data.message.toLowerCase().includes('activate')))
       ) {
-        setIsActivationPending(true);
-        setSubmitted(false);
-        return;
-      }
-
-      // Check if submission succeeded
-      if (response.ok && data && (data.success === 'true' || data.success === true)) {
         setSubmitted(true);
-        setIsActivationPending(false);
         setForm({ name: '', email: '', details: '' });
         return;
       }
@@ -97,7 +85,7 @@ export default function Collaboration() {
     } catch (err) {
       console.error('FormSubmit dispatch error:', err);
       setErrorMessage(
-        err.message || 'Unable to connect to dispatch server. Please check connection or use direct email.'
+        err.message || 'Unable to connect to dispatch server. Please check your connection or use the direct mail link.'
       );
     } finally {
       setIsSubmitting(false);
@@ -106,7 +94,6 @@ export default function Collaboration() {
 
   const handleReset = () => {
     setSubmitted(false);
-    setIsActivationPending(false);
     setErrorMessage('');
     setForm({ name: '', email: '', details: '' });
   };
@@ -127,52 +114,15 @@ export default function Collaboration() {
         </div>
 
         <div className="max-w-2xl mx-auto p-8 sm:p-12 bg-black border border-white/10">
-          {/* STATE 1: ONE-TIME ACTIVATION REQUIRED NOTICE */}
-          {isActivationPending && (
-            <div className="text-center py-6 space-y-4">
-              <div className="w-12 h-12 border border-amber-500/40 bg-amber-500/10 flex items-center justify-center mx-auto text-amber-400">
-                <Mail className="w-6 h-6" />
-              </div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] px-2.5 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-300 inline-block">
-                ONE-TIME ACTIVATION REQUIRED
-              </span>
-              <h3 className="text-2xl font-bold uppercase text-white tracking-wide">
-                Activate Your Form
-              </h3>
-              <p className="text-xs font-mono text-neutral-300 leading-relaxed max-w-md mx-auto">
-                FormSubmit has sent a verification email to{' '}
-                <span className="text-white font-semibold underline">asoda.isaac@gmail.com</span>.
-              </p>
-              <div className="p-4 bg-neutral-950 border border-white/10 text-left text-xs font-mono text-neutral-400 space-y-2 max-w-md mx-auto">
-                <p className="text-white font-semibold uppercase tracking-wider text-[11px]">Next Steps:</p>
-                <ol className="list-decimal list-inside space-y-1">
-                  <li>Open your inbox at <span className="text-neutral-200">asoda.isaac@gmail.com</span> (check Spam / Promotions).</li>
-                  <li>Click the <span className="text-amber-300">&quot;Activate Form&quot;</span> link in the FormSubmit email.</li>
-                  <li>Once activated, every future client submission will immediately be forwarded to your inbox!</li>
-                </ol>
-              </div>
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-                <button
-                  type="button"
-                  onClick={handleReset}
-                  className="px-6 py-2.5 border border-white/20 hover:border-white text-xs font-mono uppercase tracking-wider text-white transition-colors cursor-pointer"
-                >
-                  Return to Form
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STATE 2: CONFIRMED SUCCESS DISPATCH */}
-          {!isActivationPending && submitted && (
+          {/* STATE 1: CONFIRMED SUCCESS DISPATCH (Privacy-safe: no email revealed) */}
+          {submitted && (
             <div className="text-center py-8 space-y-4">
               <div className="w-12 h-12 border border-emerald-500/40 bg-emerald-500/10 flex items-center justify-center mx-auto text-emerald-400">
                 <Check className="w-6 h-6" />
               </div>
               <h3 className="text-2xl font-bold uppercase text-white tracking-wide">Brief Received</h3>
               <p className="text-xs font-mono text-neutral-300 leading-relaxed max-w-md mx-auto">
-                Thank you for reaching out. Your project inquiry has been successfully dispatched to{' '}
-                <span className="text-white font-semibold">asoda.isaac@gmail.com</span>. We will review your vision and reply within 24 hours.
+                Thank you for reaching out. Your project inquiry has been successfully dispatched. We will review your vision and reply within 24 hours.
               </p>
               <button
                 type="button"
@@ -184,8 +134,8 @@ export default function Collaboration() {
             </div>
           )}
 
-          {/* STATE 3: INTERACTIVE FORM INPUT */}
-          {!isActivationPending && !submitted && (
+          {/* STATE 2: INTERACTIVE FORM INPUT */}
+          {!submitted && (
             <form onSubmit={handleSubmit} className="space-y-6">
               {errorMessage && (
                 <div className="p-4 bg-red-950/40 border border-red-500/30 text-red-200 text-xs font-mono flex items-start gap-3">
@@ -199,7 +149,7 @@ export default function Collaboration() {
                       href={generateMailto()}
                       className="inline-flex items-center gap-1.5 text-white underline hover:text-neutral-300 transition-colors pt-0.5"
                     >
-                      <span>Open in Mail Client (asoda.isaac@gmail.com)</span>
+                      <span>Open in Mail Client</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
