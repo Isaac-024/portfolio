@@ -25,7 +25,7 @@ export const PERSONAL = {
   name: 'Isaac',
   location: 'Hyderabad / India',
   experience: '5+',
-  profileImage: '/assets/images/profile.jpg', // replace with your portrait
+  profileImage: '/assets/images/profile.jpeg', // replace with your portrait
   bio: [
     'A freelance video editor and visual storyteller dedicated to crafting cinematic experiences that move audiences.',
     'Specializing in narrative pacing, color grading, sound design, and motion graphics — every project is a collaboration built on rhythm, emotion, and precision.',
@@ -133,10 +133,10 @@ export const SOFTWARE = [
 
 // ── Contact & Social ─────────────────────────────────────────
 export const CONTACT = {
-  email: '[your.email@example.com]',
-  whatsapp: '[+1234567890]',
-  instagram: 'https://instagram.com/[yourhandle]',
-  instagramHandle: '@[yourhandle]',
-  youtube: 'https://youtube.com/@[yourchannel]',
-  youtubeHandle: '@[yourchannel]',
+  email: 'diting.isaac@gmail.com',
+  whatsapp: '+919603961237',
+  instagram: 'https://www.instagram.com/origin_visuals_?utm_source=ig_web_button_share_sheet&gwpx=ZDNlZDc0MzIxNw==',
+  instagramHandle: '@Newton',
+  youtube: 'https://youtube.com/@nstark-w8i?si=GGbK3DvFtiyyhwWZ',
+  youtubeHandle: '@Newton',
 };

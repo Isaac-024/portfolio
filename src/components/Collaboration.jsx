@@ -1,17 +1,57 @@
 import React, { useState } from 'react';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 
 export default function Collaboration() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
     name: '',
     email: '',
     details: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/asoda.isaac@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `New Video Request: Project Brief from ${form.name}`,
+          _replyto: form.email,
+          _template: 'table',
+          _captcha: 'false',
+          'Client Name / Studio': form.name,
+          'Client Email': form.email,
+          'Message / Scope': form.details,
+          'Project Intent': 'Client wants a video collaboration with ZYNC',
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success !== 'false') {
+        setSubmitted(true);
+        setForm({ name: '', email: '', details: '' });
+      } else {
+        throw new Error(data.message || 'Failed to dispatch form. Please try again.');
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+      // Fallback: Still mark as submitted or show error with direct email option
+      setErrorMessage(
+        'Unable to send via automated dispatch. Please contact asoda.isaac@gmail.com directly.'
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -36,8 +76,9 @@ export default function Collaboration() {
                 <Check className="w-6 h-6" />
               </div>
               <h3 className="text-2xl font-bold uppercase text-white">Brief Received</h3>
-              <p className="text-xs font-mono text-neutral-400">
-                Thank you for reaching out. We will review your project details and contact you within 24 hours.
+              <p className="text-xs font-mono text-neutral-400 leading-relaxed max-w-md mx-auto">
+                Thank you for reaching out. Your project request has been dispatched to{' '}
+                <span className="text-white">asoda.isaac@gmail.com</span>. We will review your vision and reply within 24 hours.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
@@ -48,6 +89,23 @@ export default function Collaboration() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              {errorMessage && (
+                <div className="p-4 bg-red-950/40 border border-red-500/30 text-red-200 text-xs font-mono flex items-start gap-3">
+                  <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                  <div>
+                    <p>{errorMessage}</p>
+                    <a
+                      href={`mailto:asoda.isaac@gmail.com?subject=Video%20Project%20Inquiry%20from%20${encodeURIComponent(
+                        form.name || 'Client'
+                      )}&body=${encodeURIComponent(form.details || '')}`}
+                      className="underline text-white mt-1 inline-block"
+                    >
+                      Click here to email directly
+                    </a>
+                  </div>
+                </div>
+              )}
+
               <div>
                 <label className="block text-[11px] font-mono uppercase tracking-widest text-neutral-400 mb-2">
                   YOUR NAME / STUDIO *
@@ -92,10 +150,20 @@ export default function Collaboration() {
 
               <button
                 type="submit"
-                className="w-full py-4 bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+                disabled={isSubmitting}
+                className="w-full py-4 bg-white text-black font-bold text-xs uppercase tracking-widest hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-95 disabled:opacity-50"
               >
-                <span>TRANSMIT PROJECT BRIEF</span>
-                <ArrowRight className="w-4 h-4" />
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>DISPATCHING BRIEF...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>TRANSMIT PROJECT BRIEF</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
           )}
