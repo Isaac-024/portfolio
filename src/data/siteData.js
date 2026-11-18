@@ -45,13 +45,13 @@ export const CATEGORIES = [
     id: 'cinematic',
     title: 'Cinematic Editing',
     description: 'Narrative-driven films with professional color grading, sound design, and seamless transitions.',
-    thumbnail: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP1mGa8F6mUFdBXlPEDhEpwNYUQirGQJ-ELt-W47vV24dOqc0KQTE47n7z&s=10',
   },
   {
     id: 'reels',
     title: 'Instagram Reels',
     description: 'High-retention vertical content with beat-synced cuts, dynamic typography, and viral pacing.',
-    thumbnail: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80',
+    thumbnail: 'https://img.magnific.com/free-photo/creative-reels-composition_23-2149711469.jpg?semt=ais_hybrid&w=740&q=80',
   },
   {
     id: 'music',
