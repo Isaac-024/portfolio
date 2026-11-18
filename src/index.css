@@ -41,6 +41,13 @@
   font-family: var(--font-brand);
 }
 
+/* Touch device guard: Ensure profile photo is full color on all phones & tablets */
+@media (hover: none), (pointer: coarse) {
+  #about img {
+    filter: none !important;
+  }
+}
+
 @keyframes pulse-dot {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }

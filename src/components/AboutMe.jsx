@@ -50,7 +50,7 @@ export default function AboutMe() {
               <img
                 src={PERSONAL.profileImage || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80"}
                 alt={PERSONAL.name}
-                className="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                className="w-full h-full object-cover grayscale-0 xl:grayscale xl:contrast-110 xl:group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                 onError={(e) => {
                   e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1000&q=80";
                 }}
