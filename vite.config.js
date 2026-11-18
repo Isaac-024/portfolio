@@ -8,5 +8,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    port: 5173,
+    watch: {
+      ignored: ['**/public/assets/videos/**', '**/*.mp4', '**/*.mov', '**/*.mkv', '**/*.avi'],
+    },
+  },
 })
 

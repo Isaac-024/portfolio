@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import CustomCursor from './components/CustomCursor';
-import IntroVideoOverlay from './components/IntroVideoOverlay';
+import React, { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+
+// Phase 1 Opening Screens
+import LoadingScreen from './components/LoadingScreen';
+import DiveInScreen from './components/DiveInScreen';
+import IntroVideo from './components/IntroVideo';
+
+// Phase 2 Main Portfolio Sections
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import AboutMe from './components/AboutMe';
-import EditingCategories from './components/EditingCategories';
 import FeaturedProjects from './components/FeaturedProjects';
+import EditingCategories from './components/EditingCategories';
 import SoftwareSkills from './components/SoftwareSkills';
 import Collaboration from './components/Collaboration';
 import ContactSection from './components/ContactSection';
@@ -13,64 +19,47 @@ import Footer from './components/Footer';
 import VideoModal from './components/VideoModal';
 
 export default function App() {
-  // Show intro video automatically on opening the website
-  const [showIntro, setShowIntro] = useState(true);
-  const [selectedVideo, setSelectedVideo] = useState(null);
-
-  const handleCompleteIntro = () => {
-    setShowIntro(false);
-  };
-
-  const handleOpenReel = () => {
-    setShowIntro(true);
-  };
+  // Opening flow stages: 'loading' -> 'divein' -> 'intro' -> 'main'
+  const [stage, setStage] = useState('loading');
+  const [activeModalProject, setActiveModalProject] = useState(null);
 
   return (
-    <div className="min-h-screen bg-[#070709] text-gray-100 relative selection:bg-purple-600 selection:text-white">
-      {/* Desktop Custom Glowing Cursor */}
-      <CustomCursor />
+    <div className="min-h-screen bg-black text-white relative font-sans selection:bg-white selection:text-black">
+      {/* Three-Screen Opening Experience */}
+      <AnimatePresence mode="wait">
+        {stage === 'loading' && (
+          <LoadingScreen key="loading" onReady={() => setStage('divein')} />
+        )}
+        {stage === 'divein' && (
+          <DiveInScreen key="divein" onDiveIn={() => setStage('intro')} />
+        )}
+        {stage === 'intro' && (
+          <IntroVideo key="intro" onComplete={() => setStage('main')} />
+        )}
+      </AnimatePresence>
 
-      {/* 2. Intro Video / Opening Experience (Automatic Full-Screen Intro) */}
-      <IntroVideoOverlay
-        isOpen={showIntro}
-        onComplete={handleCompleteIntro}
-      />
+      {/* Main Portfolio Homepage (Visible once stage === 'main') */}
+      {stage === 'main' && (
+        <div className="relative">
+          <Navbar />
+          <main>
+            <Hero />
+            <AboutMe />
+            <FeaturedProjects onSelectProject={(p) => setActiveModalProject(p)} />
+            <EditingCategories />
+            <SoftwareSkills />
+            <Collaboration />
+            <ContactSection />
+          </main>
+          <Footer />
 
-      {/* 3. Navigation Bar */}
-      <Navbar onOpenReel={handleOpenReel} />
-
-      {/* Main Content Layout */}
-      <main className="relative z-10">
-        {/* 2 & 1. Hero Section */}
-        <Hero onOpenReel={handleOpenReel} />
-
-        {/* 4. About Me Section */}
-        <AboutMe />
-
-        {/* 5. My Editing Categories */}
-        <EditingCategories onSelectVideo={(project) => setSelectedVideo(project)} />
-
-        {/* 6. Featured Projects */}
-        <FeaturedProjects onSelectVideo={(project) => setSelectedVideo(project)} />
-
-        {/* 7. Software & Skills */}
-        <SoftwareSkills />
-
-        {/* 8. Collaboration Section */}
-        <Collaboration />
-
-        {/* 9. Contact Section */}
-        <ContactSection />
-      </main>
-
-      {/* 10. Footer */}
-      <Footer />
-
-      {/* Full-Screen Video Modal Player */}
-      <VideoModal
-        project={selectedVideo}
-        onClose={() => setSelectedVideo(null)}
-      />
+          {/* Modal player for projects/categories */}
+          <VideoModal
+            project={activeModalProject}
+            onClose={() => setActiveModalProject(null)}
+          />
+        </div>
+      )}
     </div>
   );
 }

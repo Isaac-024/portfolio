@@ -1,148 +1,113 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { 
-  Mail, 
-  MessageCircle, 
-  Copy, 
-  Check, 
-  ExternalLink,
-  Sparkles,
-  ArrowUpRight
-} from 'lucide-react';
-import { InstagramIcon, YoutubeIcon } from './SocialIcons';
-import { CONTACT_INFO, PERSONAL_INFO } from '../data/portfolioData';
+import { Mail, MessageCircle, Copy, Check, ArrowUpRight } from 'lucide-react';
+import { CONTACT } from '../data/siteData';
+
+function InstagramIcon({ className = "w-5 h-5" }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
+function YoutubeIcon({ className = "w-5 h-5" }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+      <polygon points="10 15 15 12 10 9 10 15" fill="currentColor" />
+    </svg>
+  );
+}
 
 export default function ContactSection() {
-  const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(CONTACT_INFO.email);
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2000);
+  const copyEmail = () => {
+    navigator.clipboard.writeText(CONTACT.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
-  const contactChannels = [
+  const channels = [
     {
-      name: "Instagram",
-      handle: CONTACT_INFO.instagramHandle,
-      url: CONTACT_INFO.instagram,
-      description: "Behind-the-scenes timelines, color grading reels & short-form breakdowns.",
-      icon: InstagramIcon,
-      accent: "#E1306C",
-      actionText: "Follow on Instagram",
-    },
-    {
-      name: "YouTube",
-      handle: CONTACT_INFO.youtubeHandle,
-      url: CONTACT_INFO.youtube,
-      description: "Full resolution 4K director's cuts, video editing tutorials & project breakdowns.",
-      icon: YoutubeIcon,
-      accent: "#FF0000",
-      actionText: "Subscribe on YouTube",
-    },
-    {
-      name: "Email",
-      handle: CONTACT_INFO.email,
-      url: `mailto:${CONTACT_INFO.email}`,
-      description: "Official business inquiries, client briefs, and long-term retainer proposals.",
+      title: 'Email',
+      value: CONTACT.email,
+      href: `mailto:${CONTACT.email}`,
       icon: Mail,
-      accent: "#A855F7",
-      actionText: "Send an Email",
-      isEmail: true,
+      isCopy: true,
     },
     {
-      name: "WhatsApp",
-      handle: CONTACT_INFO.whatsappDisplay,
-      url: `https://wa.me/${CONTACT_INFO.whatsapp}?text=Hi!%20I'm%20interested%20in%20collaborating%20on%20a%20video%20project.`,
-      description: "Direct instant messaging for time-sensitive edits and quick project kickoffs.",
+      title: 'Instagram',
+      value: CONTACT.instagramHandle,
+      href: CONTACT.instagram,
+      icon: InstagramIcon,
+    },
+    {
+      title: 'YouTube',
+      value: CONTACT.youtubeHandle,
+      href: CONTACT.youtube,
+      icon: YoutubeIcon,
+    },
+    {
+      title: 'WhatsApp',
+      value: CONTACT.whatsapp,
+      href: `https://wa.me/${CONTACT.whatsapp.replace(/[^0-9]/g, '')}`,
       icon: MessageCircle,
-      accent: "#25D366",
-      actionText: "Chat on WhatsApp",
     },
   ];
 
   return (
-    <section id="contact" className="py-28 px-6 md:px-12 bg-[#070709] border-t border-white/5 relative">
+    <section id="contact" className="py-28 px-6 md:px-12 bg-black border-t border-white/5 relative">
       <div className="max-w-7xl mx-auto">
-        {/* Exact Required Text Banner */}
-        <div className="text-center max-w-4xl mx-auto mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono uppercase tracking-widest mb-6"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            LIVE STUDIO STATUS: OPEN
-          </motion.div>
-
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-white mb-6">
-            AVAILABLE FOR CREATIVE <span className="text-glow-neon text-emerald-400">COLLABORATIONS.</span>
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="text-xs font-mono tracking-[0.2em] uppercase text-neutral-500 block mb-3">
+            DIRECT COMMUNICATION
+          </span>
+          <h2 className="text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-white mb-4">
+            CONTACT
           </h2>
-
-          <p className="text-base sm:text-lg text-zinc-400 font-light max-w-xl mx-auto">
-            Ready to bring cinematic brilliance to your next project? Reach out directly via your preferred channel below.
+          <p className="text-sm text-neutral-400 font-light max-w-md mx-auto">
+            Available for remote and on-location editing commissions worldwide.
           </p>
         </div>
 
-        {/* 4 Contact Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {contactChannels.map((channel) => {
-            const Icon = channel.icon;
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {channels.map((ch) => {
+            const Icon = ch.icon;
             return (
               <div
-                key={channel.name}
-                className="p-6 rounded-2xl bg-zinc-950/70 border border-white/10 hover:border-purple-500/40 hover:bg-zinc-900/60 transition-all duration-300 flex flex-col justify-between group shadow-xl"
+                key={ch.title}
+                className="p-6 bg-neutral-950 border border-white/10 hover:border-white/30 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110"
-                      style={{
-                        backgroundColor: `${channel.accent}15`,
-                        borderColor: `${channel.accent}40`,
-                        borderWidth: '1px',
-                        color: channel.accent,
-                      }}
-                    >
-                      <Icon className="w-6 h-6" />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-10 h-10 border border-white/20 flex items-center justify-center text-white">
+                      <Icon className="w-4 h-4" />
                     </div>
-
-                    {channel.isEmail && (
+                    {ch.isCopy && (
                       <button
-                        onClick={handleCopyEmail}
-                        className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors border border-white/5"
-                        title="Copy Email to Clipboard"
+                        onClick={copyEmail}
+                        className="text-neutral-500 hover:text-white p-1 text-xs"
+                        title="Copy to clipboard"
                       >
-                        {copiedEmail ? (
-                          <Check className="w-4 h-4 text-emerald-400" />
-                        ) : (
-                          <Copy className="w-4 h-4" />
-                        )}
+                        {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                       </button>
                     )}
                   </div>
-
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-purple-300 transition-colors">
-                    {channel.name}
-                  </h3>
-                  <div className="text-xs font-mono text-purple-400 mb-3 truncate">
-                    {channel.handle}
-                  </div>
-                  <p className="text-xs text-zinc-400 leading-relaxed mb-6">
-                    {channel.description}
-                  </p>
+                  <h3 className="text-base font-bold text-white mb-1">{ch.title}</h3>
+                  <div className="text-xs font-mono text-neutral-400 truncate">{ch.value}</div>
                 </div>
 
                 <a
-                  href={channel.url}
-                  target={channel.isEmail ? '_self' : '_blank'}
+                  href={ch.href}
+                  target={ch.isCopy ? '_self' : '_blank'}
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 rounded-xl bg-zinc-900 group-hover:bg-purple-600 group-hover:text-white text-zinc-300 font-mono text-xs flex items-center justify-center gap-2 transition-all duration-300 border border-white/5 group-hover:border-purple-400"
+                  className="mt-6 pt-4 border-t border-white/5 text-xs font-mono text-white flex items-center justify-between group"
                 >
-                  <span>{channel.actionText}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  <span>CONNECT</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
               </div>
             );

@@ -2,103 +2,47 @@
 
 @layer base {
   :root {
-    --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-brand: 'Montserrat', sans-serif;
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-display: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --color-bg: #000000;
+    --color-surface: #0a0a0a;
+    --color-card: #111111;
+    --color-border: rgba(255,255,255,0.08);
+    --color-text: #ffffff;
+    --color-muted: #888888;
+    --color-accent: #ffffff;
   }
+
+  * { box-sizing: border-box; }
 
   body {
-    background-color: #070709;
-    color: #e5e7eb;
+    margin: 0;
+    padding: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
     font-family: var(--font-body);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    letter-spacing: -0.03em;
+  ::selection {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
   }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #000; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: #555; }
 }
 
-/* Custom cinematic glow & effects */
-.glow-purple {
-  box-shadow: 0 0 35px -5px rgba(168, 85, 247, 0.35);
+.font-brand {
+  font-family: var(--font-brand);
 }
 
-.glow-purple-lg {
-  box-shadow: 0 0 60px -10px rgba(168, 85, 247, 0.45);
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
-
-.glow-neon {
-  box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.35);
-}
-
-.glow-neon-bright {
-  box-shadow: 0 0 45px -5px rgba(0, 255, 135, 0.4);
-}
-
-.text-glow-purple {
-  text-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
-}
-
-.text-glow-neon {
-  text-shadow: 0 0 20px rgba(0, 255, 135, 0.6);
-}
-
-/* Film grain effect overlay */
-.film-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-}
-
-/* Subtle scanlines for cinematic video monitor aesthetic */
-.scanlines {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
-  ), linear-gradient(
-    90deg,
-    rgba(255, 0, 0, 0.03),
-    rgba(0, 255, 0, 0.01),
-    rgba(0, 0, 255, 0.03)
-  );
-  background-size: 100% 3px, 3px 100%;
-}
-
-/* Hide scrollbar for clean UI where needed */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Aspect ratio helpers */
-.aspect-cinema {
-  aspect-ratio: 2.39 / 1;
-}
-
-.aspect-vertical {
-  aspect-ratio: 9 / 16;
-}
-
-/* Shimmer animation */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.animate-shimmer {
-  animation: shimmer 2.2s infinite;
-}
-
-/* Pulse REC dot */
-@keyframes recPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.3; transform: scale(0.9); }
-}
-
-.animate-rec {
-  animation: recPulse 1.4s ease-in-out infinite;
-}
+.animate-pulse-dot { animation: pulse-dot 1.4s ease-in-out infinite; }
